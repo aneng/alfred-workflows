@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>468423598.22899801</real>
+		<key>IsActive</key>
+		<true/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>IsActive</key>
+						<true/>
+						<key>IsDisclosed</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteAppleScript</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>(* 
+OopsieFocus
+
+A script to launch OmniFocus and activate the Quick Entry Panel
+
+By Shawn Blanc (http://shawnblanc.net)
+May 20, 2011
+
+With code used from the Toggle Twitter script by Red Sweater Software:
+	http://www.red-sweater.com/blog/1646/toggle-twitter
+
+Works great with FastScripts or Keyboard Maestro:
+	http://www.red-sweater.com/fastscripts/
+	http://www.keyboardmaestro.com/main/
+	
+How it works:
+	Set this script to run using the same keyboard shortut that you use to launch the Quick 
+	Entry Panel in OmniFocus. If you ever try to activate the Quick Entry Panel but 
+	OmniFocus happens to not be running, then this script will launch OmniFocus and bring 
+	up the Quick Entry Panel for you.
+*)
+
+set GTDAppName to "OmniFocus"
+global GTDAppName
+set GTDAppToUse to FindRunningGTDApp()
+if (GTDAppToUse is null) then
+	set GTDAppToUse to "OmniFocus"
+end if
+
+-- Is OmniFocus running?
+on AppIsRunning(GTDAppName)
+	tell application "System Events"
+		return (count of (application processes whose name is GTDAppName)) is not 0
+	end tell
+end AppIsRunning
+
+-- If OmniFocus is running, do nothing.
+-- If OmniFocus is not running, launch it and bring up the Quick Entry Panel.
+on FindRunningGTDApp()
+	if AppIsRunning(GTDAppName) then
+		null
+	else
+		tell application "OmniFocus"
+			activate
+			tell quick entry
+				open
+				make new inbox task
+				tell application "System Events" to keystroke tab
+			end tell
+		end tell
+	end if
+	return null
+end FindRunningGTDApp</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>467832504.51943398</real>
+				<key>IsActive</key>
+				<true/>
+				<key>ModificationDate</key>
+				<real>467827866.65850502</real>
+				<key>Name</key>
+				<string>Oopsie Focus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>49</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>090E28A8-3E47-4142-8369-5DE95B53F9F7</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Keyboard Maestro Article</string>
+		<key>ToggleMacroUID</key>
+		<string>2799711D-06EE-453A-B729-B7B965416F4D</string>
+		<key>UID</key>
+		<string>5B7D1D62-7F18-473B-B5DD-4E3459DBCB1C</string>
+	</dict>
+</array>
+</plist>
